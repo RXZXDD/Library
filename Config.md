@@ -43,3 +43,39 @@
 
     3. <b>使用GConfig对象及SaveConfig、LoadConfig函数</b>
 
+
+# UClass()的修饰符
+ 1. Config="ConfigFileName" ， FileName为配置文件名,最后的文件名为"ConfigFileName.ini" 
+
+    ```
+     e.i
+     [/ConfigTest.ConfigTestActor]     //[PathName.ClassName]
+        string = "ConfigTestActor"
+        BP_Set = "NewBlueprint_C"
+    ``` 
+    ----
+
+    若配置文件名称为内置名，则
+       ```
+       e.i
+     [/Script/ConfigTest.ConfigTestActor]  //[/Script/PathName.ClassName]
+        string = "cdasgav"
+
+    ```
+
+2. PerObjectConfig  <span style="color:red"> Not working on PIE</span>
+
+    为每个instance做配置
+    ```
+    e.i.
+    [Vertex:PersistentLevel.NewBlueprint_C_3 Newblueprint_C]   //[ObjectName ClassName]
+    string = "NewBPPPP34"
+    ```
+
+#UPROPERTY()的修饰符
+    1. Config
+        标识属性写入配置文件
+
+    2.GlobalConfig
+        标识属性写入配置文件
+        子类配置不可修改
