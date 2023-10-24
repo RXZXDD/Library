@@ -1,0 +1,75 @@
+FAnisotropyPS
+FAnisotropyVS
+FDebugViewModePS
+FDebugViewModeVS
+FDeepShadowDepthMeshPS
+FDeepShadowDepthMeshVS
+FDeepShadowDomMeshPS
+FDeepShadowDomMeshVS
+FDepthOnlyPS<bUsesMobileColorValue>
+FDistortionMeshPS
+FDistortionMeshVS
+FHairMaterialPS
+FHairMaterialVS
+FHairVisibilityPS<RenderMode>
+FHairVisibilityVS<RenderMode, bCullingEnable>
+FHitProxyPS
+FHitProxyVS
+FLandscapeGrassWeightPS
+FLandscapeGrassWeightVS
+FLandscapePhysicalMaterial
+    FLandscapePhysicalMaterialPS
+    FLandscapePhysicalMaterialVS
+FLightmapGBufferPS
+FLightmapGBufferVS
+FLumenCardPS<bMultiViewCapture>
+FLumenCardVS
+FLumenTranslucencyRadianceCacheMarkPS
+FLumenTranslucencyRadianceCacheMarkVS
+FMaterialCHS
+    FTrivialMaterialCHS
+    TMaterialCHS<LightMapPolicyType, UseAnyHitShader, UseIntersectionShader, UseRayConeTextureLod>
+FMeshDecalsPS
+    FMeshDecalsAmbientOcclusionPS
+    FMeshDecalsEmissivePS
+FMeshDecalsVS
+FRayTracingDynamicGeometryConverterCS
+FRenderVolumetricCloudRenderViewCS
+FRenderVolumetricCloudRenderViewPs<Permutation, bSampleCountDebugMode>
+FRenderVolumetricCloudVS
+FShader_VirtualTextureMaterialDraw (in RuntimeVirtualTexture)
+    FShader_VirtualTextureMaterialDraw_PS<MaterialPolicy> (in RuntimeVirtualTexture)
+    FShader_VirtualTextureMaterialDraw_VS<MaterialPolicy> (in RuntimeVirtualTexture)
+FShadowDepthBasePS
+    TShadowDepthPS<ShaderMode>
+FShadowDepthVS
+    TShadowDepthVS<ShaderMode, bUsePositionOnlyStream>
+FTranslucencyShadowDepthPS
+    TTranslucencyShadowDepthPS<ShaderMode>
+FTranslucencyShadowDepthVS
+    TTranslucencyShadowDepthVS<ShaderMode>
+FVelocityPS
+FVelocityVS
+FVLMVoxelizationGS
+FVLMVoxelizationPS
+FVLMVoxelizationVS
+FVolumetricCloudShadowPS
+FVoxelizeVolumeGS
+    TVoxelizeVolumeGS<Mode>
+FVoxelizeVolumePS
+    TVoxelizeVolumePS<Mode>
+FVoxelizeVolumeVS
+    TVoxelizeVolumeVS<Mode>
+TBasePassPixelShaderPolicyParamType<LightMapPolicyType>
+    TBasePassPixelShaderBaseType<LightMapPolicyType>
+TBasePassVertexShaderPolicyParamType<LightMapPolicyType>
+    TBasePassVertexShaderBaseType<LightMapPolicyType>
+TDepthOnlyVS<bUsePositionOnlyStream>
+TLightMapDensityPS<LightMapPolicyType>
+TLightMapDensityVS<LightMapPolicyType>
+TLightmapMaterial<UseAnyHitShader>
+TMobileBasePassPSPolicyParamType<LightMapPolicyType>
+    TMobileBasePassPSBaseType<LightMapPolicyType>
+TMobileBasePassVSPolicyParamType<LightMapPolicyType>
+    TMobileBasePassVSBaseType<LightMapPolicyType>
+TPathTracingMaterial<UseAnyHitShader, UseIntersectionShader>
