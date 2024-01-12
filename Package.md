@@ -40,7 +40,7 @@
 
 默认读取order最大的pak的文件
 
-![Alt text](Imgs\Package_Img\image-1.png)
+![Alt text](./Imgs/Package_Img/image-1.png)
 
 # 6.pak 作用和archive格式 
 pak mount文件查询优化
@@ -51,7 +51,7 @@ pak mount文件查询优化
 
 pakCache预加载
 
-![Alt text](Imgs\Package_Img\image-2.png)
+![Alt text](./Imgs/Package_Img/image-2.png)
 
 # 7. pak创建
 收集要打包的资源和外部文件
@@ -60,7 +60,7 @@ pakCache预加载
 - 用UnrealPak打包
 
 ResponseFile格式：文件绝对路径 Mount后的路径 + 打包参数
-![Alt text](Imgs\Package_Img\image-3.png)
+![Alt text](/.Imgs/Package_Img/image-3.png)
 
 # 8. Metadata更新
 - Shader
@@ -68,5 +68,5 @@ ResponseFile格式：文件绝对路径 Mount后的路径 + 打包参数
 - ini
 
 # 9. Shader更新
-![Alt text](Imgs\Package_Img\image-4.png)
-![Alt text](Imgs\Package_Img\image-5.png)
+![Alt text](./Imgs/Package_Img/image-4.png)
+![Alt text](./ImgsPackage_Img/image-5.png)
