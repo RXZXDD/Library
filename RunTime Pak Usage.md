@@ -1,50 +1,51 @@
 # RunTime Pak Usage
+
 ## Attention
 
-<font color='red' size='10' >**Only Tried in UE Ver-5.1**</font>
+**Only Tried in UE Ver-5.1**
 
 ## In Situation
 
-- Want to Hot-Patch Content
+* Want to Hot-Patch Content
 
- ## Process of Using Pak File at Real-Time
-  1. [Preliminaries](#Preliminaries) 
-   
-  2. [Mount Pak](#MountPak)
-   
-  3. [Register Mount Point](#RegisterMountPoint)
+## Process of Using Pak File at Real-Time
 
-  4. [Use Asset in Pak](#UseAssetInPak)
+1. [Preliminaries](<RunTime Pak Usage.md#Preliminaries>)
+2. [Mount Pak](<RunTime Pak Usage.md#MountPak>)
+3. [Register Mount Point](<RunTime Pak Usage.md#RegisterMountPoint>)
+4. [Use Asset in Pak](<RunTime Pak Usage.md#UseAssetInPak>)
 
-## Preliminaries <a id='Preliminaries'></a>
->### for the project used to use pak at runtime
->1. Uncheck setting <font color='#EEB422'>「Project -> Packaging -> IOStore」</font>
-  
->### for the project you want to pacakge content into pak file：
->1. Uncheck setting <font color='#EEB422'>「Project -> Packaging -> Share Material Shader Code」</font>，for prevent shader missing after package.
->2. Use 「Primary Asset Lable」 to split content into chunk.
->3. check setting <font color='#EEB422'>「Project -> Packaging -> Generate Chunk」</font>, for chunking asset into different pak.
+## Preliminaries <a href="#preliminaries" id="preliminaries"></a>
 
+> #### for the project used to use pak at runtime
+>
+> 1. Uncheck setting 「Project -> Packaging -> IOStore」
 
-## Mount Pak <a id='MountPak'></a>
-1. Gave a Disk Path」 of .Pak File. 
-    
-    Like <font color='#EEB422'>「G:\PakDemo.pak」</font>
-2. Format input path to Platform File Name. 
+> #### for the project you want to pacakge content into pak file：
+>
+> 1. Uncheck setting 「Project -> Packaging -> Share Material Shader Code」，for prevent shader missing after package.
+> 2. Use 「Primary Asset Lable」 to split content into chunk.
+> 3. check setting 「Project -> Packaging -> Generate Chunk」, for chunking asset into different pak.
+
+## Mount Pak <a href="#mountpak" id="mountpak"></a>
+
+1.  Gave a Disk Path」 of .Pak File.
+
+    Like 「G:\PakDemo.pak」
+2.  Format input path to Platform File Name.
+
     ```cpp
         //e.g. 「D:\\BranchTest\\a\\b.pak」 -> 「D:/BranchTest/a/b.pak」
         //api
         void FPaths::MakePlatformFilename( FString& InPath )
     ```
-
-3. Get platform file manager of pak file
+3.  Get platform file manager of pak file
 
     ```cpp
     //api
     FPlatformFileManager::Get().FindPlatformFile(TEXT("PakFile"))
     ```
-
-4. Use platform manager to mount pak file.Means that the pak file will add to PakFileManager::PakFiles as A new 「Pak Entry」.
+4.  Use platform manager to mount pak file.Means that the pak file will add to PakFileManager::PakFiles as A new 「Pak Entry」.
 
     ```cpp
     //api
@@ -52,9 +53,9 @@
 
     ```
 
-## Register Mount Point<a id='RegisterMountPoint'></a>
+## Register Mount Point <a href="#registermountpoint" id="registermountpoint"></a>
 
-1. Register Mount Point to UnrealFileSystem's Root
+1.  Register Mount Point to UnrealFileSystem's Root
 
     ```cpp
     //api
@@ -70,48 +71,51 @@
     //Or convert to Project Dir relative path manually.
     void FPackageName::RegisterMountPoint(const FString& RootPath, const FString& ContentPath)
     ```
+2.  Check Mount
 
-2.  Check Mount 
-   
     Use console cmd 「PackageName.DumpMountPoints」to check.
 
-    As the example above in comment, if dumping has log contain your pak path like: 「LogPackageName: 	'/Game/' -> '../../../../../Saved/Cooked/Windows/Linux2Project/Content/AdditionCook_DLC11/'」,it means you have sucessfully register mount point to UFS.
+    As the example above in comment, if dumping has log contain your pak path like: 「LogPackageName: '/Game/' -> '../../../../../Saved/Cooked/Windows/Linux2Project/Content/AdditionCook\_DLC11/'」,it means you have sucessfully register mount point to UFS.
 
+## Use Asset in Pak <a href="#useassetinpak" id="useassetinpak"></a>
 
-## Use Asset in Pak<a id='UseAssetInPak'></a>
-1. Make a currect filename of the asset. 
+1.  Make a currect filename of the asset.
 
-    Format: <font color='pink'>RegisterRootPath</font>+<font color='green'>PackageName</font>.<font color='yellow'>ClassName/ObjectName</font>
-    
-    >e.g.    
-    >- non-BP asset:<font color='pink'>/Game/</font><font color='green'>AdditionCook_DLC11/YYBMiku</font>.<font color='yellow'>YYBMiku</font>
+    Format: RegisterRootPath+PackageName.ClassName/ObjectName
+
+    > e.g.
     >
-    >- BP asset:<font color='pink'>/Game/</font><font color='green'>AdditionCook_DLC/BP_DLC</font>.<font color='yellow'>BP_DLC_C</font>
+    > * non-BP asset:/Game/AdditionCook\_DLC11/YYBMiku.YYBMiku
+    > * BP asset:/Game/AdditionCook\_DLC/BP\_DLC.BP\_DLC\_C
 
-    ---
-    >    As example above, we register <font color='#EEB422'>「../../../../../Saved/Cooked/Windows/Linux2Project/Content/AdditionCook_DLC11/」</font> to RootPath <font color='#EEB422'>「/Game/」</font>, 
+    ***
+
+    > As example above, we register 「../../../../../Saved/Cooked/Windows/Linux2Project/Content/AdditionCook\_DLC11/」 to RootPath 「/Game/」,
     >
-    >    you want to load asset <font color='#EEB422'>「../../../../../Saved/Cooked/Windows/Linux2Project/Content/AdditionCook_DLC11/A/B/a.uasset」</font>, 
+    > you want to load asset 「../../../../../Saved/Cooked/Windows/Linux2Project/Content/AdditionCook\_DLC11/A/B/a.uasset」,
     >
-    >    then the file format will be : <font color='pink'>/Game/</font><font color='green'>A/B/a</font>.<font color='yellow'>a</font> 
-    >    
-    ---
-    >   Another Example:
-    >   1. have a pak, in disk 「A:/b/c.pak」,and pak's mount point is <font color='#EEB422'>「../../YourProjectName/Content/」</font>.contains below uasset. 
-    > 
-    >       - Folder1/item1.uasset
-    >       - Folder1/item2.uasset
-    >       - Folder2/item3.uasset
-    >       - Folder3/SubFolder/BP_item4.uasset
-    >    2.  you mount the pak to PakPlatformManager, and Register the pak's mount point <font color='#EEB422'>「../../YourProjectName/Content/」</font> to UFS's Root path <font color='#EEB422'>「/MyMountRoot/」</font>
-    >    3.  then you can access assets like below:
-    >           |asset name in pak|load object/class file name|
-    >           |:---                          |:---|
-    >           |Folder1/item1.uasset           |/MyMountRoot/Folder1/item1.item1|
-    >           |Folder1/item2.uasset           |/MyMountRoot/Folder1/item2.item2 |
-    >           |Folder2/item3.uasset           |/MyMountRoot/Folder2/item3.item3 |
-    >           |Folder3/SubFolder/item4.uasset |/MyMountRoot/Folder3/SubFolder/BP_item4.BP_item4_C    |
-2. load asset.
+    > then the file format will be : /Game/A/B/a.a
+
+    ***
+
+    > Another Example:
+    >
+    > 1. have a pak, in disk 「A:/b/c.pak」,and pak's mount point is 「../../YourProjectName/Content/」.contains below uasset.
+    >    * Folder1/item1.uasset
+    >    * Folder1/item2.uasset
+    >    * Folder2/item3.uasset
+    >    * Folder3/SubFolder/BP\_item4.uasset
+    > 2. you mount the pak to PakPlatformManager, and Register the pak's mount point 「../../YourProjectName/Content/」 to UFS's Root path 「/MyMountRoot/」
+    > 3.  then you can access assets like below:
+    >
+    >     | asset name in pak              | load object/class file name                           |
+    >     | ------------------------------ | ----------------------------------------------------- |
+    >     | Folder1/item1.uasset           | /MyMountRoot/Folder1/item1.item1                      |
+    >     | Folder1/item2.uasset           | /MyMountRoot/Folder1/item2.item2                      |
+    >     | Folder2/item3.uasset           | /MyMountRoot/Folder2/item3.item3                      |
+    >     | Folder3/SubFolder/item4.uasset | /MyMountRoot/Folder3/SubFolder/BP\_item4.BP\_item4\_C |
+2.  load asset.
+
     ```cpp
     //load an object
     template< class T > 
@@ -122,22 +126,20 @@
     inline UClass* LoadClass( UObject* Outer, const TCHAR* Name, const TCHAR* Filename=nullptr, uint32 LoadFlags=LOAD_None, UPackageMap* Sandbox=nullptr )
 
     ```
-    <font color='red'>Difference</font>: 
-    
-    - LoadClass() will do a IsChildOf(BaseClass) to ensure the loaded object is a child of user specify Parent Class
-    - In usual,load BP class use LoadClass(), other asset in content use LoadObject().
 
+    Difference:
+
+    * LoadClass() will do a IsChildOf(BaseClass) to ensure the loaded object is a child of user specify Parent Class
+    * In usual,load BP class use LoadClass(), other asset in content use LoadObject().
 
 ## Helpful tools.
-1. UnrealPak
-   
-   for packaging cooked asset into different .pak file.
 
-2. PackageName.DumpMountPoints
-   
-   to check current UFS mount points.
+1.  UnrealPak
 
-3. FPackageName class 
-   
-   to handle asset file name,and use to (un)register mount point.
-    
+    for packaging cooked asset into different .pak file.
+2.  PackageName.DumpMountPoints
+
+    to check current UFS mount points.
+3.  FPackageName class
+
+    to handle asset file name,and use to (un)register mount point.
