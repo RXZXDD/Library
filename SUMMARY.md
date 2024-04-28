@@ -28,7 +28,6 @@
 * [ClassHierarchy](classhierarchy/README.md)
   * [FMeshMaterialShader](ClassHierarchy/FMeshMaterialShader.md)
 
-## GitbookTes
+## CPP Relative
 
-* [Page](gitbooktes/page.md)
-* [Page test](gitbooktes/page-test.md)
+* [调用Python](cpp-relative/tiao-yong-python.md)
